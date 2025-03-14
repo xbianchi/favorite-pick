@@ -256,6 +256,9 @@ h2 {
 <script>
 'use strict';
 
+'use strict';
+
+// Datos de las queens
 var items = [
    { id: 'bebe', name: 'BeBe Zahara Benet', image: 'bebe.png' },
    { id: 'nina', name: 'Nina Flowers', image: 'nina.png' },
@@ -268,6 +271,7 @@ var items = [
    { id: 'victoria', name: 'Victoria "Porkchop" Parker', image: 'victoria.png' }
 ];
 
+// Configuración inicial
 var myPicker = new picker.Picker({
     items: items,
     localStorageKey: 'picker-state',
@@ -277,6 +281,7 @@ var myPicker = new picker.Picker({
     }
 });
 
+// UI del Picker
 var pickerUI = new PickerUI(myPicker, {
     elements: {
         pick: "#pick",
@@ -286,24 +291,36 @@ var pickerUI = new PickerUI(myPicker, {
         evaluating: "#evaluating",
         favorites: "#favorites",
         settings: {
-            maxBatchSize: '#max-batch-size'  // Vincula el formulario de maxBatchSize
+            maxBatchSize: '#max-batch-size'
         }
     }
 });
 
 pickerUI.initialize();
 
-// Escuchar cambios en el campo de maxBatchSize
-$('#max-batch-size').on('input', function() {
-    var newMaxBatchSize = $(this).val();  // Obtener el nuevo valor del input
-
-    // Actualizar el valor en la configuración de Picker
-    myPicker.setSettings({
-        maxBatchSize: newMaxBatchSize
-    });
-
-    // Actualizar la UI si es necesario
+// Actualizar el valor de maxBatchSize cuando el campo de entrada cambie
+document.getElementById('max-batch-size').addEventListener('change', function() {
+    var newMaxBatchSize = parseInt(this.value, 10);
+    myPicker.setSettings({ maxBatchSize: newMaxBatchSize });
     pickerUI.update();
+});
+
+// Sortable favorites
+var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
+    draggable: '.item',
+    animation: 100,
+    onStart: function() {
+        pickerUI.elem.favorites.addClass("sorting");
+    },
+    onEnd: function() {
+        pickerUI.elem.favorites.removeClass("sorting");
+    },
+    onUpdate: function() {
+        myPicker.setFavorites(pickerUI.elem.favorites.children().map(function() {
+            return pickerUI.getItem(this);
+        }).get());
+        pickerUI.update(true);
+    }
 });
 
 </script>
