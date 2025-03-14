@@ -299,8 +299,10 @@
     // Actualizar el valor de maxBatchSize cuando el campo de entrada cambie
     document.getElementById('max-batch-size').addEventListener('change', function() {
         var newMaxBatchSize = parseInt(this.value, 10);
-        myPicker.setSettings({ maxBatchSize: newMaxBatchSize });
-        pickerUI.update();
+        if (!isNaN(newMaxBatchSize)) {
+            myPicker.setSettings({ maxBatchSize: newMaxBatchSize });
+            pickerUI.update(); // Asegúrate de actualizar la UI
+        }
     });
 
     // Sortable favorites
