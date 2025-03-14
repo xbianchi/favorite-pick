@@ -1,0 +1,107 @@
+/* General Page Styles */
+body {
+    font-family: 'Arial', sans-serif; /* Fuentes sencillas para el cuerpo */
+    background-color: #ff66b2; /* Un rosa brillante */
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Cursive', sans-serif;
+    font-size: 3em;
+    color: #fff;
+    background: linear-gradient(to right, #ff99cc, #ff66b2); /* Fondo de gradiente rosa */
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 50px;
+}
+
+/* Títulos Secundarios */
+h2 {
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    font-size: 2em;
+    margin-top: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Diseño de los Botones */
+button {
+    background-color: #ff33cc; /* Rosa fuerte */
+    border: 2px solid #fff;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    color: white;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: #ff99cc; /* Cambia a rosa más suave cuando el mouse pasa sobre el botón */
+    transform: scale(1.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Efectos de las imágenes */
+img {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.1);
+}
+
+/* Diseño para los elementos de lista de favoritos */
+.favorite-list {
+    list-style: none;
+    padding: 0;
+}
+
+.favorite-list li {
+    font-size: 1.5em;
+    margin: 15px 0;
+    text-align: center;
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    padding: 10px;
+}
+
+.favorite-list li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+/* Sección de Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ff33cc;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
