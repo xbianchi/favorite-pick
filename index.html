@@ -263,6 +263,9 @@ var items = [
 
 var myPicker = new picker.Picker({
     items: items
+    defaultSettings: {
+        minBatchSize: 3,
+        maxBatchSize: 10
 });
 
 var pickerUI = new PickerUI(myPicker, {
