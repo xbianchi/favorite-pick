@@ -241,6 +241,13 @@ h2 {
 <ol id="favorites" class="item-list">
 </ol>
 </div>
+
+<!-- Formulario para el tamaño del lote máximo -->
+<div id="settings">
+  <label for="max-batch-size">Tamaño Máximo del Lote:</label>
+  <input type="number" id="max-batch-size" value="6" min="1" max="20"> <!-- Valor por defecto 6 -->
+</div>
+
 </div>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="picker.js"></script>
@@ -251,14 +258,14 @@ h2 {
 
 var items = [
    { id: 'bebe', name: 'BeBe Zahara Benet', image: 'bebe.png' },
-    { id: 'nina', name: 'Nina Flowers', image: 'nina.png' },
-    { id: 'rebecca', name: 'Rebecca Glasscock', image: 'rebecca.png' },
-    { id: 'shannel', name: 'Shannel', image: 'shannel.png' },
-    { id: 'ongina', name: 'Ongina', image: 'ongina.png' },
-    { id: 'jade', name: 'Jade', image: 'jade.png' },
-    { id: 'akashia', name: 'Akashia', image: 'akashia.png' },
-    { id: 'tammie', name: 'Tammie Brown', image: 'tammie.png' },
-    { id: 'victoria', name: 'Victoria "Porkchop" Parker', image: 'victoria.png' }
+   { id: 'nina', name: 'Nina Flowers', image: 'nina.png' },
+   { id: 'rebecca', name: 'Rebecca Glasscock', image: 'rebecca.png' },
+   { id: 'shannel', name: 'Shannel', image: 'shannel.png' },
+   { id: 'ongina', name: 'Ongina', image: 'ongina.png' },
+   { id: 'jade', name: 'Jade', image: 'jade.png' },
+   { id: 'akashia', name: 'Akashia', image: 'akashia.png' },
+   { id: 'tammie', name: 'Tammie Brown', image: 'tammie.png' },
+   { id: 'victoria', name: 'Victoria "Porkchop" Parker', image: 'victoria.png' }
 ];
 
 var myPicker = new picker.Picker({
@@ -269,6 +276,7 @@ var myPicker = new picker.Picker({
         maxBatchSize: 6
     }
 });
+
 var pickerUI = new PickerUI(myPicker, {
     elements: {
         pick: "#pick",
@@ -276,30 +284,28 @@ var pickerUI = new PickerUI(myPicker, {
         undo: "#undo",
         redo: "#redo",
         evaluating: "#evaluating",
-        favorites: "#favorites"
+        favorites: "#favorites",
+        settings: {
+            maxBatchSize: '#max-batch-size'  // Vincula el formulario de maxBatchSize
+        }
     }
 });
 
 pickerUI.initialize();
 
-/* Sortable favorites - you can safely remove this, and the Sortable.min.js script, if you don't want to be able to sort your favorite list. */
-var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
-    draggable: '.item',
-    animation: 100,
-    onStart: function() {
-        pickerUI.elem.favorites.addClass("sorting");
-    },
-    onEnd: function() {
-        pickerUI.elem.favorites.removeClass("sorting");
-    },
-    onUpdate: function() {
-        myPicker.setFavorites(pickerUI.elem.favorites.children().map(function() {
-            return pickerUI.getItem(this);
-        }).get());
-        pickerUI.update(true);
-    }
+// Escuchar cambios en el campo de maxBatchSize
+$('#max-batch-size').on('input', function() {
+    var newMaxBatchSize = $(this).val();  // Obtener el nuevo valor del input
+
+    // Actualizar el valor en la configuración de Picker
+    myPicker.setSettings({
+        maxBatchSize: newMaxBatchSize
+    });
+
+    // Actualizar la UI si es necesario
+    pickerUI.update();
 });
-/* End sortable favorites */
+
 </script>
 </body>
 </html>
