@@ -474,7 +474,7 @@
 itemContent = $(`
   <div>
     <img src="${item.image}" alt="${itemName}" title="${itemName}">
-    <div style="margin-top:5px; font-size:0.85em; color: white;">${itemName}</div>
+    <div>${itemName}</div>
   </div>
 `);        }
         else {
