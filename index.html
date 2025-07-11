@@ -84,18 +84,23 @@ button.disabled:hover {
     box-sizing: border-box;
 }
 
-#favorites li {
-    width: 100px;
-    height: 130px;
-    margin: 5px;
+.item-list li {
+    width: 110px;
+    height: 140px;
+    border-radius: 10px;
+    background-color: #ff99cc;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    text-align: center;
 }
 
-#favorites li img {
+.item-list li img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -103,9 +108,11 @@ button.disabled:hover {
     margin-bottom: 5px;
 }
 
-#favorites li div {
-    font-size: 0.8em;
+.item-list li div {
+    font-size: 0.85em;
     color: white;
+    margin-top: 5px;
+    line-height: 1.2;
 }
 
 /* Responsive para móviles */
