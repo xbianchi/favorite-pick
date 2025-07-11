@@ -67,20 +67,42 @@ button.disabled:hover {
 /* Estilos para el área de evaluación y favoritos */
 #picking {
     float: left;
-    width: 100%;
+    width: 60%;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 #secondary {
-    margin-left: 100%;
+    float: right;
+    width: 35%;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
+    box-sizing: border-box;
 }
 
+/* Mejora visual para ítems en favoritas */
+#favorites li {
+    width: 100px;
+    height: 120px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    #picking, #secondary {
+        width: 100%;
+        float: none;
+    }
+}
+    
 /* Estilo para los elementos de lista */
 .item-list {
     padding: 0;
