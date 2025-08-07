@@ -253,12 +253,29 @@ h2 {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+#season-select {
+    margin: 20px 0;
+}
+
+#season-select label {
+    margin-right: 10px;
+}
+
 </style>
 </head>
 <body>
 <h1>Rupaul's Drag Race Seleccionador</h1>
 
 <p>¡Selecciona tu queen favorita!</p>
+
+<div id="season-select">
+  <label><input type="checkbox" id="select-all-seasons" checked> Todas las temporadas</label>
+  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="1" checked> 1</label>
+  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="2" checked> 2</label>
+  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="3" checked> 3</label>
+  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="4" checked> 4</label>
+  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="5" checked> 5</label>
+</div>
 
 <div id="container">
 
@@ -359,9 +376,85 @@ var items = [
 { id: 'lala', name: 'Lala Ri', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/lala.png?raw=true' }
 
 ];
+var allSeasons = [1,2,3,4,5];
+var itemSeasons = {
+    // Season 1
+    bebe: 1,
+    nina: 1,
+    rebecca: 1,
+    shannel: 1,
+    ongina: 1,
+    jade: 1,
+    akashia: 1,
+    tammie: 1,
+    victoria: 1,
+    // Season 3
+    raja: 3,
+    manila: 3,
+    alexis: 3,
+    yara: 3,
+    carmen: 3,
+    shangela: 3,
+    delta: 3,
+    stacy: 3,
+    mariah: 3,
+    india: 3,
+    mimi: 3,
+    phoenix: 3,
+    venus: 3,
+    // Season 2
+    tyra: 2,
+    raven: 2,
+    jujubee: 2,
+    tatianna: 2,
+    pandora: 2,
+    jessica: 2,
+    sahara: 2,
+    morgan: 2,
+    sonique: 2,
+    mystique: 2,
+    nicole: 2,
+    // Season 4
+    sharon: 4,
+    chad: 4,
+    phi: 4,
+    latrice: 4,
+    kenya: 4,
+    dida: 4,
+    willam: 4,
+    jiggly: 4,
+    milan: 4,
+    madame: 4,
+    princess: 4,
+    lashauwn: 4,
+    alisa: 4,
+    // Season 5
+    jinkx: 5,
+    alaska: 5,
+    roxxxy: 5,
+    detox: 5,
+    coco: 5,
+    alyssa: 5,
+    ivy: 5,
+    jade_jolie: 5,
+    lineysha: 5,
+    honey: 5,
+    vivienne: 5,
+    monica: 5,
+    serena: 5,
+    penny: 5
+};
 
 var myPicker = new picker.Picker({
-    items: items
+    items: items,
+    defaultSettings: { seasons: allSeasons.slice() },
+    shouldIncludeItem: function(item, settings) {
+        var seasons = settings.seasons || [];
+        if (seasons.length === 0 || seasons.length === allSeasons.length) {
+            return true;
+        }
+        return seasons.indexOf(itemSeasons[item.id]) !== -1;
+    }
 });
 var pickerUI = new PickerUI(myPicker, {
     elements: {
@@ -370,11 +463,25 @@ var pickerUI = new PickerUI(myPicker, {
         undo: "#undo",
         redo: "#redo",
         evaluating: "#evaluating",
-        favorites: "#favorites"
+        f favorites: "#favorites",
+        settings: {
+            seasons: "input.season-checkbox"
+        }
     }
 });
 
 pickerUI.initialize();
+
+// Manage select all seasons checkbox
+$('#select-all-seasons').on('change', function() {
+    var checked = $(this).is(':checked');
+    $('input.season-checkbox').prop('checked', checked).trigger('change');
+});
+
+$('input.season-checkbox').on('change', function() {
+    var allChecked = $('input.season-checkbox:checked').length === allSeasons.length;
+    $('#select-all-seasons').prop('checked', allChecked);
+});
 
 /* Sortable favorites - you can safely remove this, and the Sortable.min.js script, if you don't want to be able to sort your favorite list. */
 var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
