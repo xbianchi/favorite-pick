@@ -75,35 +75,54 @@ button.disabled:hover {
 }
 
 #secondary {
-    margin-left: 100%;
+    margin-left: 0;
+    width: 100%;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid #fff;
     border-radius: 10px;
+    margin-top: 20px;
+}
+
+#favorites {
+    min-height: 160px;
 }
 
 
+    /* Lista de elementos */
+.item-list {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
 .item-list li {
     width: 110px;
-    height: 140px;
     border-radius: 10px;
     background-color: #ff99cc;
     text-align: center;
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: start;
+    padding: 10px 0;
+}
+
+.item-list li:hover {
+    background-color: #ff66b2;
+    transform: scale(1.05);
 }
 
 .item-list li img {
-    width: 80px;
-    height: 80px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 5px;
 }
 
 .item-list li div {
@@ -120,50 +139,12 @@ button.disabled:hover {
         float: none;
     }
 }
-    
-/* Estilo para los elementos de lista */
-.item-list {
-    padding: 0;
-    list-style-type: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-}
-
-.item-list li {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #ff99cc; /* Rosa suave */
-    text-align: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.item-list li:hover {
-    background-color: #ff66b2; /* Rosa más intenso */
-    transform: scale(1.05);
-}
-
-.item-list li img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.item-list li span {
-    color: white;
-    font-size: 1em;
-    line-height: 1.2;
-}
 
 @media (max-width: 636px) {
     .item-list li {
+        width: 75px;
+         }
+    .item-list li img {
         width: 75px;
         height: 75px;
     }
@@ -171,6 +152,9 @@ button.disabled:hover {
 
 @media (max-width: 423px) {
     .item-list li {
+        width: 50px;
+            }
+    .item-list li img {
         width: 50px;
         height: 50px;
     }
