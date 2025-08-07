@@ -261,6 +261,14 @@ h2 {
     margin-right: 10px;
 }
 
+#batch-size-select {
+    margin: 20px 0;
+}
+
+#batch-size-select label {
+    margin-right: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -275,6 +283,18 @@ h2 {
   <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="3" checked> 3</label>
   <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="4" checked> 4</label>
   <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="5" checked> 5</label>
+</div>
+
+<div id="batch-size-select">
+  <label for="batch-size">Cantidad de queens a la vez:</label>
+  <select id="batch-size" class="setting-number">
+    <option value="2">2</option>
+    <option value="4">4</option>
+    <option value="6">6</option>
+    <option value="8">8</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+  </select>
 </div>
 
 <div id="container">
@@ -447,7 +467,7 @@ var itemSeasons = {
 
 var myPicker = new picker.Picker({
     items: items,
-    defaultSettings: { seasons: allSeasons.slice() },
+    defaultSettings: { seasons: allSeasons.slice(), minBatchSize: 2, maxBatchSize: 2 },
     shouldIncludeItem: function(item, settings) {
         var seasons = settings.seasons || [];
         if (seasons.length === 0 || seasons.length === allSeasons.length) {
@@ -465,7 +485,9 @@ var pickerUI = new PickerUI(myPicker, {
         evaluating: "#evaluating",
         favorites: "#favorites",
         settings: {
-            seasons: "input.season-checkbox"
+            seasons: "input.season-checkbox",
+            minBatchSize: "#batch-size",
+            maxBatchSize: "#batch-size"
         }
     }
 });
