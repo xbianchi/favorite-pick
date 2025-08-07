@@ -1,17 +1,17 @@
-+{
-+  "name": "favorite-pick",
-+  "version": "1.0.0",
-+  "description": "",
-+  "main": "picker-ui.js",
-+  "scripts": {
-+    "test": "node --test"
-+  },
-+  "keywords": [],
-+  "author": "",
-+  "license": "ISC",
-+  "type": "commonjs",
-+  "dependencies": {
-+    "jquery": "^3.7.1",
-+    "jsdom": "^26.1.0"
-+  }
-+}
+{
+  "name": "favorite-pick",
+  "version": "1.0.0",
+  "description": "",
+  "main": "picker-ui.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "jsdom": "^26.1.0"
+  }
+}
