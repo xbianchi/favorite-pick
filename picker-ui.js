@@ -460,7 +460,7 @@
          * Creates and returns an element or jQuery object for an item,
          * to be inserted into the evaluating element.
          * The behaviour of this function can be overridden with the
-         * getItemElem setting. By default, if the getImageUrl setting
+         * getItemElem setting. By default, if the getItemImageUrl setting
          * is set, it returns an image with that URL; otherwise, it simply
          * returns a plain text list item.
          */
@@ -470,18 +470,18 @@
         if (this.options.getItemElem) {
             return $(this.options.getItemElem(item, settings)).addClass('item').data('item', item.id);
         }
-        if (item.image || this.options.getItemImageUrl) {
-itemContent = $(`
-  <div>
-    <img src="${item.image}" alt="${itemName}" title="${itemName}">
-    <div>${itemName}</div>
-  </div>
-`);        }
-        else {
-            itemContent = $('<span>' + itemName + '</span>');
+       var imageUrl = item.image;
+        if (!imageUrl && typeof this.options.getItemImageUrl === 'function') {
+            imageUrl = this.options.getItemImageUrl(item, settings);
         }
-        return this.wrapItem(itemContent).addClass('item').data('item', item.id);
-    };
+        if (imageUrl) {
+            itemContent = $(
+                `<div>
+    <img src="${imageUrl}" alt="${itemName}" title="${itemName}">
+            itemContent = $('<span>' + itemName + '</span>');
+        </div>`
+            );
+        }
 
     PickerUI.prototype.makeResetButton = function(text) {
         /**
