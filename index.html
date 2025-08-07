@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0">
 <title>Picker</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lobster&display=swap" rel="stylesheet">
 <style>
 :root {
 --primary-color: #ff4fd8;
@@ -120,11 +120,52 @@ button.disabled:hover {
     flex-direction: column;
     align-items: center;
     padding: 10px 0;
+    position: relative;
+    overflow: hidden;
 }
 
 .item-list li:hover {
     background: var(--card-hover-bg);
     transform: scale(1.05);
+}
+
+/* Sparkle hover effect */
+.item-list li::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.8) 2px, transparent 3px),
+                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.8) 2px, transparent 3px),
+                radial-gradient(circle at 30% 80%, rgba(255,255,255,0.8) 2px, transparent 3px),
+                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.8) 2px, transparent 3px);
+    background-size: 50px 50px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.5);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.item-list li:hover::after {
+    opacity: 1;
+    transform: scale(1);
+    animation: sparkle 1s infinite ease-in-out;
+}
+
+@keyframes sparkle {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+@keyframes flyIn {
+    from { transform: translateY(-20px) scale(0.5); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.favorite-animate {
+    animation: flyIn 0.6s ease-out, sparkle 1s ease-out;
 }
 
 .item-list li img {
@@ -235,7 +276,7 @@ footer a:hover {
 
 /* Estilo de los títulos */
 h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Lobster', cursive;
     font-size: 3em;
     background: linear-gradient(to right, var(--accent-color), var(--primary-color));
     -webkit-background-clip: text;
@@ -246,7 +287,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Lobster', cursive;
     color: var(--text-color);
     font-size: 2em;
     margin-top: 20px;
@@ -327,6 +368,7 @@ h2 {
 
 <ol id="favorites" class="item-list">
 </ol>
+<button id="share-results">Compartir Top 10</button>
 </div>
 </div>
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -356,6 +398,9 @@ var myPicker = new picker.Picker({
         return true;
     }
 });
+var prevFavoritesLength = 0;
+var achievements = { total: 0, seasonCounts: {}, shantay: false };
+
 var pickerUI = new PickerUI(myPicker, {
     elements: {
         pick: "#pick",
@@ -370,10 +415,61 @@ var pickerUI = new PickerUI(myPicker, {
             minBatchSize: "#batch-size",
             maxBatchSize: "#batch-size"
         }
+},
+    onUpdate: function() {
+        var currentLen = this.picker.getFavorites().length;
+        if (currentLen > prevFavoritesLength) {
+            var $newItem = this.elem.favorites.children().last();
+            $newItem.addClass('favorite-animate');
+            setTimeout(function(){ $newItem.removeClass('favorite-animate'); }, 1000);
+
+            var newItems = this.picker.getFavorites().slice(prevFavoritesLength, currentLen);
+            newItems.forEach(function(it){
+                var season = itemSeasons[it.id];
+                achievements.seasonCounts[season] = (achievements.seasonCounts[season] || 0) + 1;
+            });
+            achievements.total = currentLen;
+
+            if (!achievements.shantay && achievements.total >= 50) {
+                alert('¡Shantay you slay!');
+                achievements.shantay = true;
+            }
+            for (var s in achievements.seasonCounts) {
+                if (achievements.seasonCounts[s] >= 5 && !achievements['season'+s]) {
+                    alert('Superfan de Season ' + s + '!');
+                    achievements['season'+s] = true;
+                }
+            }
+        }
+        prevFavoritesLength = currentLen;
     }
 });
 
 pickerUI.initialize();
+
+document.getElementById('share-results').addEventListener('click', function() {
+    var favorites = myPicker.getFavorites().slice(0,10);
+    var canvas = document.createElement('canvas');
+    canvas.width = 600; canvas.height = 600;
+    var ctx = canvas.getContext('2d');
+    var gradient = ctx.createLinearGradient(0,0,600,600);
+    gradient.addColorStop(0,'#ff4fd8');
+    gradient.addColorStop(1,'#00d4ff');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0,0,600,600);
+    ctx.fillStyle = '#fff';
+    ctx.font = '28px Lobster';
+    ctx.fillText('Mi Top Drag Queens:', 20, 40);
+    ctx.font = '20px Poppins';
+    favorites.forEach(function(it, i){
+        ctx.fillText((i+1)+'. '+(it.name||it.id), 20, 80 + i*40);
+    });
+    ctx.fillText('#MyDragRaceTop', 20, 560);
+    var link = document.createElement('a');
+    link.download = 'top-drag-queens.png';
+    link.href = canvas.toDataURL();
+    link.click();
+});
 
 function bindSeasonCheckboxes(franchise) {
     pickerUI.elem.settings.seasons = $('input.season-checkbox');
