@@ -275,27 +275,31 @@ h2 {
 <h1>Rupaul's Drag Race Seleccionador</h1>
 
 <p>¡Selecciona tu queen favorita!</p>
-
-<div id="season-select">
-    <label><input type="checkbox" id="select-all-seasons" checked> Todas las temporadas</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="1" checked> 1</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="2" checked> 2</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="3" checked> 3</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="4" checked> 4</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="5" checked> 5</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="6" checked> 6</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="7" checked> 7</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="8" checked> 8</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="9" checked> 9</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="10" checked> 10</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="11" checked> 11</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="12" checked> 12</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="13" checked> 13</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="14" checked> 14</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="15" checked> 15</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="16" checked> 16</label>
-    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="17" checked> 17</label>
-  </div>
+<div id="franchise-select">
+  <label for="franchise">Franquicia:</label>
+  <select id="franchise" class="setting-franchise">
+    <option value="all">Todas las franquicias</option>
+    <option value="usa">USA</option>
+    <option value="allstars">All Stars</option>
+    <option value="uk">UK</option>
+    <option value="canada">Canada</option>
+    <option value="espana">España</option>
+    <option value="downunder">Down Under</option>
+    <option value="holland">Holland</option>
+    <option value="thailand">Thailand</option>
+    <option value="chile">Chile</option>
+    <option value="philippines">Philippines</option>
+    <option value="france">France</option>
+    <option value="belgique">Belgique</option>
+    <option value="italia">Italia</option>
+    <option value="brasil">Brasil</option>
+    <option value="mexico">México</option>
+    <option value="sverige">Suecia</option>
+    <option value="germany">Alemania</option>
+  </select>
+</div>
+    
+<div id="season-select"></div>
 
 <div id="batch-size-select">
   <label for="batch-size">Cantidad de queens a la vez:</label>
@@ -334,13 +338,22 @@ h2 {
 'use strict';
 var myPicker = new picker.Picker({
     items: items,
-    defaultSettings: { seasons: allSeasons.slice(), minBatchSize: 2, maxBatchSize: 2 },
+    defaultSettings: { franchise: 'all', seasons: [], minBatchSize: 2, maxBatchSize: 2 },
     shouldIncludeItem: function(item, settings) {
-        var seasons = settings.seasons || [];
-        if (seasons.length === 0 || seasons.length === allSeasons.length) {
-            return true;
+        var franchise = settings.franchise || 'all';
+        if (franchise !== 'all') {
+            var itemFranchise = itemFranchises[item.id] || 'usa';
+            if (itemFranchise !== franchise) {
+                return false;
+            }
+            var seasons = settings.seasons || [];
+            var available = franchiseSeasons[franchise] || [];
+            if (seasons.length === 0 || seasons.length === available.length) {
+                return true;
+            }
+            return seasons.indexOf(itemSeasons[item.id]) !== -1;
         }
-        return seasons.indexOf(itemSeasons[item.id]) !== -1;
+        return true;
     }
 });
 var pickerUI = new PickerUI(myPicker, {
@@ -352,6 +365,7 @@ var pickerUI = new PickerUI(myPicker, {
         evaluating: "#evaluating",
         favorites: "#favorites",
         settings: {
+            franchise: "#franchise",
             seasons: "input.season-checkbox",
             minBatchSize: "#batch-size",
             maxBatchSize: "#batch-size"
@@ -361,16 +375,47 @@ var pickerUI = new PickerUI(myPicker, {
 
 pickerUI.initialize();
 
-// Manage select all seasons checkbox
-$('#select-all-seasons').on('change', function() {
-    var checked = $(this).is(':checked');
-    $('input.season-checkbox').prop('checked', checked).trigger('change');
+function bindSeasonCheckboxes(franchise) {
+    pickerUI.elem.settings.seasons = $('input.season-checkbox');
+    $('#select-all-seasons').on('change', function() {
+        var checked = $(this).is(':checked');
+        $('input.season-checkbox').prop('checked', checked);
+        myPicker.setSettings(pickerUI.getSettings());
+        pickerUI.update(true);
+    });
+    $('input.season-checkbox').on('change', function() {
+        var allChecked = $('input.season-checkbox:checked').length === (franchiseSeasons[franchise] || []).length;
+        $('#select-all-seasons').prop('checked', allChecked);
+        myPicker.setSettings(pickerUI.getSettings());
+        pickerUI.update(true);
+    });
+}
+
+function populateSeasonCheckboxes(franchise) {
+    var container = $('#season-select');
+    container.empty();
+    if (franchise === 'all') {
+        pickerUI.elem.settings.seasons = $('input.season-checkbox');
+        myPicker.setSettings(pickerUI.getSettings());
+        pickerUI.update(true);
+        return;
+    }
+    var seasons = franchiseSeasons[franchise] || [];
+    var html = '<label><input type="checkbox" id="select-all-seasons" checked> Todas las temporadas</label>';
+    for (var i = 0; i < seasons.length; i++) {
+        html += '<label><input type="checkbox" name="season" class="season-checkbox setting-number" value="' + seasons[i] + '" checked> ' + seasons[i] + '</label>';
+    }
+    container.html(html);
+    bindSeasonCheckboxes(franchise);
+    myPicker.setSettings(pickerUI.getSettings());
+    pickerUI.update(true);
+}
+
+$('#franchise').on('change', function() {
+    populateSeasonCheckboxes($(this).val());
 });
 
-$('input.season-checkbox').on('change', function() {
-    var allChecked = $('input.season-checkbox:checked').length === allSeasons.length;
-    $('#select-all-seasons').prop('checked', allChecked);
-});
+populateSeasonCheckboxes($('#franchise').val());
 
 /* Sortable favorites - you can safely remove this, and the Sortable.min.js script, if you don't want to be able to sort your favorite list. */
 var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
