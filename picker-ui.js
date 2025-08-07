@@ -470,22 +470,23 @@
         if (this.options.getItemElem) {
             return $(this.options.getItemElem(item, settings)).addClass('item').data('item', item.id);
         }
-               var imageUrl = item.image;
-        if (!imageUrl && this.options.getItemImageUrl) {
-            imageUrl = this.options.getItemImageUrl(item, settings);
-        }
-        if (imageUrl) {
-            itemContent = $(`
+        var imageUrl = item.image;
+        if (!imageUrl && typeof this.options.getItemImageUrl === 'function') {
             imageUrl = this.options.getItemImageUrl(item, settings);
         }
         if (imageUrl) {
             itemContent = $(
                 `<div>
     <img src="${imageUrl}" alt="${itemName}" title="${itemName}">
-            itemContent = $('<span>' + itemName + '</span>');
-        </div>`
+    <div>${itemName}</div>
+  </div>`
             );
         }
+        else {
+            itemContent = $('<span>' + itemName + '</span>');
+        }
+        return this.wrapItem(itemContent).addClass('item').data('item', item.id);
+    };
 
     PickerUI.prototype.makeResetButton = function(text) {
         /**
