@@ -470,8 +470,12 @@
         if (this.options.getItemElem) {
             return $(this.options.getItemElem(item, settings)).addClass('item').data('item', item.id);
         }
-       var imageUrl = item.image;
-        if (!imageUrl && typeof this.options.getItemImageUrl === 'function') {
+               var imageUrl = item.image;
+        if (!imageUrl && this.options.getItemImageUrl) {
+            imageUrl = this.options.getItemImageUrl(item, settings);
+        }
+        if (imageUrl) {
+            itemContent = $(`
             imageUrl = this.options.getItemImageUrl(item, settings);
         }
         if (imageUrl) {
