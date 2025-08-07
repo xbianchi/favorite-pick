@@ -1,4 +1,24 @@
-const allSeasons = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
+const franchiseSeasons = {
+  usa: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+  allstars: [1,2,3,4,5,6,7,8,9],
+  uk: [1,2,3,4,5],
+  canada: [1,2,3,4],
+  espana: [1,2,3,4],
+  downunder: [1,2,3],
+  holland: [1,2],
+  thailand: [1,2],
+  chile: [1,2],
+  philippines: [1,2],
+  france: [1,2],
+  belgique: [1,2],
+  italia: [1,2],
+  brasil: [1],
+  mexico: [1],
+  sverige: [1],
+  germany: [1]
+};
+const itemFranchises = {};
+const allSeasons = franchiseSeasons.usa;
 const items = [
   { id: 'akashia', name: 'Akashia', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/akashia.png?raw=true' },
   { id: 'bebe_zahara_benet', name: 'BeBe Zahara Benet', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/bebe_zahara_benet.png?raw=true' },
