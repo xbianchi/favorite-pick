@@ -277,13 +277,25 @@ h2 {
 <p>¡Selecciona tu queen favorita!</p>
 
 <div id="season-select">
-  <label><input type="checkbox" id="select-all-seasons" checked> Todas las temporadas</label>
-  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="1" checked> 1</label>
-  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="2" checked> 2</label>
-  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="3" checked> 3</label>
-  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="4" checked> 4</label>
-  <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="5" checked> 5</label>
-</div>
+    <label><input type="checkbox" id="select-all-seasons" checked> Todas las temporadas</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="1" checked> 1</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="2" checked> 2</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="3" checked> 3</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="4" checked> 4</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="5" checked> 5</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="6" checked> 6</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="7" checked> 7</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="8" checked> 8</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="9" checked> 9</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="10" checked> 10</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="11" checked> 11</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="12" checked> 12</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="13" checked> 13</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="14" checked> 14</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="15" checked> 15</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="16" checked> 16</label>
+    <label><input type="checkbox" name="season" class="season-checkbox setting-number" value="17" checked> 17</label>
+  </div>
 
 <div id="batch-size-select">
   <label for="batch-size">Cantidad de queens a la vez:</label>
@@ -313,158 +325,13 @@ h2 {
 </ol>
 </div>
 </div>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="picker.js"></script>
-<script src="picker-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
-<script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="picker.js"></script>
+  <script src="picker-ui.js"></script>
+  <script src="queens.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
+  <script>
 'use strict';
-
-var items = [
-{ id: 'bebe', name: 'BeBe Zahara Benet', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/bebe.png?raw=true' },
-{ id: 'nina', name: 'Nina Flowers', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/nina.png?raw=true' },
-{ id: 'rebecca', name: 'Rebecca Glasscock', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/rebecca.png?raw=true' },
-{ id: 'shannel', name: 'Shannel', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/shannel.png?raw=true' },
-{ id: 'ongina', name: 'Ongina', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/ongina.png?raw=true' },
-{ id: 'jade', name: 'Jade', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/jade.png?raw=true' },
-{ id: 'akashia', name: 'Akashia', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/akashia.png?raw=true' },
-{ id: 'tammie', name: 'Tammie Brown', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/tammie.png?raw=true' },
-{ id: 'victoria', name: 'Victoria "Porkchop" Parker', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/victoria.png?raw=true' },
-{ id: 'raja', name: 'Raja', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/raja.png?raw=true' },
-{ id: 'manila', name: 'Manila Luzon', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/manila.png?raw=true' },
-{ id: 'alexis', name: 'Alexis Mateo', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/alexis.png?raw=true' },
-{ id: 'yara', name: 'Yara Sofia', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/yara.png?raw=true' },
-{ id: 'carmen', name: 'Carmen Carrera', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/carmen.png?raw=true' },
-{ id: 'shangela', name: 'Shangela', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/shangela.png?raw=true' },
-{ id: 'delta', name: 'Delta Work', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/delta.png?raw=true' },
-{ id: 'stacy', name: 'Stacy Layne Matthews', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/stacy.png?raw=true' },
-{ id: 'mariah', name: 'Mariah', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/mariah.png?raw=true' },
-{ id: 'india', name: 'India Ferrah', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/india.png?raw=true' },
-{ id: 'mimi', name: 'Mimi Imfurst', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/mimi.png?raw=true' },
-{ id: 'phoenix', name: 'Phoenix', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/phoenix.png?raw=true' },
-{ id: 'venus', name: 'Venus D-Lite', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/venus.png?raw=true' },
-{ id: 'tyra', name: 'Tyra Sanchez', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/tyra.png?raw=true' },
-{ id: 'raven', name: 'Raven', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/raven.png?raw=true' },
-{ id: 'jujubee', name: 'Jujubee', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/jujubee.png?raw=true' },
-{ id: 'tatianna', name: 'Tatianna', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/tatianna.png?raw=true' },
-{ id: 'pandora', name: 'Pandora Boxx', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/pandora.png?raw=true' },
-{ id: 'jessica', name: 'Jessica Wild', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/jessica.png?raw=true' },
-{ id: 'sahara', name: 'Sahara Davenport', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/sahara.png?raw=true' },
-{ id: 'morgan', name: 'Morgan McMichaels', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/morgan.png?raw=true' },
-{ id: 'sonique', name: 'Sonique', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/sonique.png?raw=true' },
-{ id: 'mystique', name: 'Mystique Summers Madison', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/mystique.png?raw=true' },
-{ id: 'nicole', name: 'Nicole Paige Brooks', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/nicole.png?raw=true' },
-{ id: 'sharon', name: 'Sharon Needles', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/sharon.png?raw=true' },
-{ id: 'chad', name: 'Chad Michaels', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/chad.png?raw=true' },
-{ id: 'phi', name: 'Phi Phi O\'Hara', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/phiphi.png?raw=true' },
-{ id: 'latrice', name: 'Latrice Royale', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/latrice.png?raw=true' },
-{ id: 'kenya', name: 'Kenya Michaels', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/kenya.png?raw=true' },
-{ id: 'dida', name: 'Dida Ritz', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/dida.png?raw=true' },
-{ id: 'willam', name: 'Willam', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/willam.png?raw=true' },
-{ id: 'jiggly', name: 'Jiggly Caliente', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/jiggly.png?raw=true' },
-{ id: 'milan', name: 'Milan', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/milan.png?raw=true' },
-{ id: 'madame', name: 'Madame LaQueer', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/madame.png?raw=true' },
-{ id: 'princess', name: 'The Princess', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/theprincess.png?raw=true' },
-{ id: 'lashauwn', name: 'Lashauwn Beyond', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/lashauwn.png?raw=true' },
-{ id: 'alisa', name: 'Alisa Summers', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/alisa.png?raw=true' },
-{ id: 'jinkx', name: 'Jinkx Monsoon', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/jinkx.png?raw=true' },
-{ id: 'alaska', name: 'Alaska', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/alaska.png?raw=true' },
-{ id: 'roxxxy', name: 'Roxxxy Andrews', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/roxxxy.png?raw=true' },
-{ id: 'detox', name: 'Detox', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/detox.png?raw=true' },
-{ id: 'coco', name: 'Coco Montrese', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/coco.png?raw=true' },
-{ id: 'alyssa', name: 'Alyssa Edwards', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/alyssa.png?raw=true' },
-{ id: 'ivy', name: 'Ivy Winters', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/ivy.png?raw=true' },
-{ id: 'jade_jolie', name: 'Jade Jolie', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/jade_jolie.png?raw=true' },
-{ id: 'lineysha', name: 'Lineysha Sparx', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/lineysha.png?raw=true' },
-{ id: 'honey', name: 'Honey Mahogany', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/honey.png?raw=true' },
-{ id: 'vivienne', name: 'Vivienne Pinay', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/vivienne.png?raw=true' },
-{ id: 'monica', name: 'Monica Beverly Hillz', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/monica.png?raw=true' },
-{ id: 'serena', name: 'Serena ChaCha', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/serena.png?raw=true' },
-{ id: 'penny', name: 'Penny Tration', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/penny.png?raw=true' },
-{ id: 'bianca', name: 'Bianca Del Rio', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/bianca.png?raw=true' },
-{ id: 'adore', name: 'Adore Delano', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/adore.png?raw=true' },
-{ id: 'courtney', name: 'Courtney Act', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/courtney.png?raw=true' },
-{ id: 'darienne', name: 'Darienne Lake', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/darienne.png?raw=true' },
-{ id: 'bende', name: 'BenDeLaCreme', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/bende.png?raw=true' },
-{ id: 'joslyn', name: 'Joslyn Fox', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/joslyn.png?raw=true' },
-{ id: 'trinity_k', name: 'Trinity K. Bonet', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/trinityk.png?raw=true' },
-{ id: 'yuhua', name: 'Yuhua Hamasaki', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/yuhua.png?raw=true' },
-{ id: 'katya', name: 'Katya Zamolodchikova', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/katya.png?raw=true' },
-{ id: 'kandy', name: 'Kandy Muse', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/kandy.png?raw=true' },
-{ id: 'symone', name: 'Symone', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/symone.png?raw=true' },
-{ id: 'tamisha', name: 'Tamisha Iman', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/tamisha.png?raw=true' },
-{ id: 'lala', name: 'Lala Ri', image: 'https://github.com/xbianchi/favorite-pick/blob/main/Image/lala.png?raw=true' }
-
-];
-var allSeasons = [1,2,3,4,5];
-var itemSeasons = {
-    // Season 1
-    bebe: 1,
-    nina: 1,
-    rebecca: 1,
-    shannel: 1,
-    ongina: 1,
-    jade: 1,
-    akashia: 1,
-    tammie: 1,
-    victoria: 1,
-    // Season 3
-    raja: 3,
-    manila: 3,
-    alexis: 3,
-    yara: 3,
-    carmen: 3,
-    shangela: 3,
-    delta: 3,
-    stacy: 3,
-    mariah: 3,
-    india: 3,
-    mimi: 3,
-    phoenix: 3,
-    venus: 3,
-    // Season 2
-    tyra: 2,
-    raven: 2,
-    jujubee: 2,
-    tatianna: 2,
-    pandora: 2,
-    jessica: 2,
-    sahara: 2,
-    morgan: 2,
-    sonique: 2,
-    mystique: 2,
-    nicole: 2,
-    // Season 4
-    sharon: 4,
-    chad: 4,
-    phi: 4,
-    latrice: 4,
-    kenya: 4,
-    dida: 4,
-    willam: 4,
-    jiggly: 4,
-    milan: 4,
-    madame: 4,
-    princess: 4,
-    lashauwn: 4,
-    alisa: 4,
-    // Season 5
-    jinkx: 5,
-    alaska: 5,
-    roxxxy: 5,
-    detox: 5,
-    coco: 5,
-    alyssa: 5,
-    ivy: 5,
-    jade_jolie: 5,
-    lineysha: 5,
-    honey: 5,
-    vivienne: 5,
-    monica: 5,
-    serena: 5,
-    penny: 5
-};
-
 var myPicker = new picker.Picker({
     items: items,
     defaultSettings: { seasons: allSeasons.slice(), minBatchSize: 2, maxBatchSize: 2 },
