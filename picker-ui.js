@@ -476,14 +476,14 @@
             imageUrl = this.options.getItemImageUrl(item, settings);
         }
         if (imageUrl) {
+            var imageUrl = item.image || this.options.getItemImageUrl(item);
             itemContent = $(
                 `<div>
-    <img src="${imageUrl}" alt="${itemName}" title="${itemName}">
-    <div>${itemName}</div>
-  </div>`
+                    <img src="${imageUrl}" alt="${itemName}" title="${itemName}">
+                    <div>${itemName}</div>
+                </div>`
             );
-        }
-        else {
+        } else {
             itemContent = $('<span>' + itemName + '</span>');
         }
         return this.wrapItem(itemContent).addClass('item').data('item', item.id);
