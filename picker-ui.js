@@ -460,9 +460,10 @@
          * Creates and returns an element or jQuery object for an item,
          * to be inserted into the evaluating element.
          * The behaviour of this function can be overridden with the
-         * getItemElem setting. By default, if the getItemImageUrl setting
-         * is set, it returns an image with that URL; otherwise, it simply
-         * returns a plain text list item.
+         * getItemElem setting. By default, if the item has an image or
+         * the getItemImageUrl setting is provided, it returns an image
+         * with that URL; otherwise, it simply returns a plain text list
+         * item.
          */
         var itemContent;
         var itemName;
